@@ -1,24 +1,32 @@
-<div class="border border-red-500 flex justify-center">
-    <div class="border border-red-500 w-full p-4 max-w-[1796px] flex justify-between items-center">
+<div class="flex justify-center border-b-4">
+    <div class="w-full px-4 py-2 max-w-[1796px] flex justify-between items-center">
         <div>
-            <p>Open NPM</p>
+            <a routerLink="/">
+                <img src="/assets/logo.png" alt="logo" class="w-[200px]" />
+            </a>
         </div>
-        <div class="border border-red-500 flex w-1/4 justify-between">
-            <div class="p-2 border-b-2 border-black">
-                <a routerLink="/build">
+        <div class="flex w-1/4 justify-between text-lg">
+            <a routerLink="/build"
+                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
+                routerLinkActive="bg-gray-300">
+                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
                     Build
-                </a>
-            </div>
-            <div class="p-2 border-b-2 border-black">
-                <a routerLink="/view">
+                </div>
+            </a>
+            <a routerLink="/view"
+                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
+                routerLinkActive="bg-gray-300">
+                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
                     View
-                </a>
-            </div>
-            <div class="p-2 border-b-2 border-black">
-                <a routerLink="/validate">
+                </div>
+            </a>
+            <a routerLink="/validate"
+                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
+                routerLinkActive="bg-gray-300">
+                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
                     Validate
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>
