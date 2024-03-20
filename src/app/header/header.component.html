@@ -1,32 +1,39 @@
-<div class="flex justify-center border-b-4">
-    <div class="w-full px-4 py-2 max-w-[1796px] flex justify-between items-center">
-        <div>
-            <a routerLink="/">
-                <img src="/assets/logo.png" alt="logo" class="w-[200px]" />
-            </a>
+<div class="relative">
+    <div class="flex justify-center border-b-4">
+        <div class="w-9/10 px-4 py-2 max-w-[1796px] flex justify-between items-center">
+            <div>
+                <a routerLink="/">
+                    <img src="/assets/logo.png" alt="logo" class="w-[200px]" />
+                </a>
+            </div>
+            <div class="flex md:w-1/3 xl:w-1/4 justify-between text-lg">
+                <button (click)="this.toggleModal()"
+                    class="border border-black/0 rounded-full p-2 hover:border-gray-400 active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
+                    [ngClass]="{ 'bg-gray-300': showModal }">
+                    <svg class="w-8 h-8 text-gray-600 md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                            d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+                <a *ngFor="let link of this.links" [routerLink]="link.path" (click)="this.closeModal()"
+                    class="rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40] hidden md:block"
+                    routerLinkActive="bg-gray-300">
+                    <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
+                        {{ link.label }}
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="flex w-1/4 justify-between text-lg">
-            <a routerLink="/build"
-                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
-                routerLinkActive="bg-gray-300">
-                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
-                    Build
-                </div>
-            </a>
-            <a routerLink="/view"
-                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
-                routerLinkActive="bg-gray-300">
-                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
-                    View
-                </div>
-            </a>
-            <a routerLink="/validate"
-                class="hover:border rounded-lg border border-black/0 hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]"
-                routerLinkActive="bg-gray-300">
-                <div class="text-gray-600 p-2 font-['Assistant'] font-bold">
-                    Validate
-                </div>
-            </a>
-        </div>
+    </div>
+    <div class="border-l-4 absolute right-0 w-full sm:w-1/2 fill-up bg-white" *ngIf="showModal">
+        <a *ngFor="let link of this.links"
+            class="border block p-1 hover:border-gray-400 active:bg-white active:border-black" [routerLink]="link.path"
+            routerLinkActive="bg-gray-300 border-black">
+            <div class="text-gray-600 p-2 font-['Assistant'] font-bold text-xl">
+                {{ link.label }}
+            </div>
+        </a>
     </div>
 </div>
