@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -18,11 +18,14 @@ export class HeaderComponent {
   ];
   showModal = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
     this.breakpointObserver.observe('(min-width: 768px)').subscribe(result => {
       if (result.matches) {
         this.showModal = false;
       }
+    });
+    this.router.events.subscribe(() => {
+      this.showModal = false;
     });
   }
 
