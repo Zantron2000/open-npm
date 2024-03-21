@@ -1,0 +1,19 @@
+<div class="w-full flex justify-center items-center bg-[#23272a] text-white p-8">
+    <div class="w-9/10 px-4 py-2 max-w-[1796px] flex justify-between flex-row">
+        <div class="w-1/2">
+            <a routerLink="/">
+                <img src="/assets/logo.png" alt="logo" class="w-fit lg:w-3/4 xl:w-fit" />
+            </a>
+        </div>
+        <div class="flex justify-between w-1/2">
+            <div *ngFor="let column of this.columns">
+                <div class="text-[#52a300] font-semibold pb-4 text-xl">
+                    <p>{{ column.header }}</p>
+                </div>
+                <div *ngFor="let link of column.links">
+                    <p class="py-1 text-lg">{{ link.label }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
