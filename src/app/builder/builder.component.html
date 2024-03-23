@@ -1,15 +1,23 @@
 <div class="min-h-[80vh] flex flex-col items-center mb-8">
-    <div class="flex justify-center w-full border-b-2 grow-1 shrink-1">
+    <div class="flex justify-center w-full border-b-2 grow-0 shrink basis-[auto]">
         <div class="w-9/10 px-4 py-1 max-w-[1796px] flex justify-end items-center">
+            <button
+                class="border border-black/0 rounded-full hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]">
+                <p class="text-gray-600 px-2 py-1 font-['Assistant'] text-md font-bold">Add Component</p>
+            </button>
             <button
                 class="border border-black/0 rounded-full hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]">
                 <p class="text-gray-600 px-2 py-1 font-['Assistant'] text-md font-bold">Import JSON</p>
             </button>
+            <button
+                class="border border-black/0 rounded-full hover:border-gray-400 active:bg-white active:border-black active:shadow-[0_0_0_3px] active:shadow-[#0057da40]">
+                <p class="text-gray-600 px-2 py-1 font-['Assistant'] text-md font-bold">Export JSON</p>
+            </button>
         </div>
     </div>
-    <div class="flex h-full w-9/10 px-4 py-1 max-w-[1796px] relative">
-        <div class="w-1/4 h-[90%] max-h-[80vh] flex justify-end overflow-y-scroll sticky top-0 px-2">
-            <div class="h-[20%] flex flex-col py-4 space-y-4 w-3/4">
+    <div class="flex h-full w-9/10 px-4 py-1 max-w-[1796px] relative grow shrink basis-[auto] items-stretch">
+        <div class="w-1/4 max-h-[80vh] flex justify-end overflow-y-auto sticky top-0 px-2">
+            <div class="h-full flex flex-col py-4 space-y-4 w-3/4">
                 <div class="space-y-4 px-2">
                     <div>
                         <input type="search" placeholder="JUMP TO"
@@ -45,13 +53,32 @@
                 </div>
             </div>
         </div>
-        <div class="w-3/4 h-[90%]">
-            <p>2</p>
-
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-
+        <div class="w-3/4">
+            <div class="p-4 h-full flex flex-row flex-wrap">
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
+                        Add a Type Declaration
+                    </button>
+                </div>
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
+                        Add a Variable
+                    </button>
+                </div>
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
+                        Add a Function
+                    </button>
+                </div>
+                <div class="basis-1/2 flex justify-center items-center">
+                    <button
+                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
+                        Add a Class
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
