@@ -1,0 +1,28 @@
+<div>
+    <form class="space-y-4">
+        <div class="flex flex-col space-y-2">
+            <label for="package-name" class="text-xl font-semibold">Package Name<span
+                    class="text-red-500">*</span></label>
+            <input type="text" name="package-name" id="package-name" placeholder="Enter package name"
+                class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.package.name" />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="package-description" class="text-xl font-semibold">Package Description</label>
+            <textarea name="package-description" placeholder="Enter package description"
+                class="border p-2 rounded-xl text-lg h-1/2 h-40" id="package-description"
+                [(ngModel)]="this.package.description"></textarea>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="package-version" class="text-xl font-semibold">Package Version<span
+                    class="text-red-500">*</span></label>
+            <input type="text" name="package-version" placeholder="Enter package version"
+                class="border p-2 rounded-xl text-lg w-fit" [(ngModel)]="this.package.version" />
+        </div>
+        <div class="flex justify-center">
+            <button type="submit"
+                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2">
+                Create Package
+            </button>
+        </div>
+    </form>
+</div>

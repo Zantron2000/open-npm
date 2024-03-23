@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { PackageFormComponent } from './package-form/package-form.component';
 
 type Category = {
   name: string;
@@ -17,7 +18,7 @@ type SortMethod = {
 @Component({
   selector: 'app-builder',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PackageFormComponent],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.css'
 })
