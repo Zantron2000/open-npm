@@ -8,99 +8,38 @@
         </div>
     </div>
     <div class="flex h-full w-9/10 px-4 py-1 max-w-[1796px] relative">
-        <div class="w-1/4 h-[90%] max-h-[80vh] flex justify-end overflow-y-scroll sticky top-0">
+        <div class="w-1/4 h-[90%] max-h-[80vh] flex justify-end overflow-y-scroll sticky top-0 px-2">
             <div class="h-[20%] flex flex-col py-4 space-y-4 w-3/4">
-                <div class="space-y-4">
+                <div class="space-y-4 px-2">
                     <div>
                         <input type="search" placeholder="JUMP TO"
-                            class="border rounded-lg text-2xs placeholder:font-bold placeholder:text-gray-600 p-2 w-full" />
+                            class="border rounded-lg text-xs placeholder:font-bold placeholder:text-gray-600 p-2 w-full" />
                     </div>
                     <div>
                         <div class="font-semibold pb-2">
                             <p>Sort By</p>
                         </div>
                         <div class="flex justify-start space-x-2">
-                            <button class="border text-sm px-2 py-1 rounded-lg hover:bg-gray-300">Types</button>
-                            <button class="border text-sm px-2 py-1 rounded-lg hover:bg-gray-300">Tags</button>
+                            <button class="border text-sm px-2 py-1 rounded-lg" [disabled]="method.active"
+                                [ngClass]="{'bg-gray-400': method.active, 'hover:bg-gray-300': !method.active }"
+                                *ngFor="let method of this.sortMethods">
+                                {{ method.name }}
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
+                    <div *ngFor="let category of this.categories">
+                        <div class="font-semibold pb-1 px-2">
+                            <p>{{ category.name }}</p>
                         </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold pb-1">
-                            <p>Header</p>
-                        </div>
-                        <div class="space-x text-base">
-                            <p class="">Link 1</p>
-                            <p class="">Link 2</p>
-                            <p class="">Link 3</p>
-                            <p class="">Link 4</p>
+                        <div class="space-x text-base space-y-1">
+                            <p *ngFor="let item of category.items"
+                                class="whitespace-nowrap overflow-x-hidden text-ellipsis px-2 rounded-lg" [ngClass]="
+                                    { 'bg-gray-400': item.editting, 'hover:bg-gray-300': !item.editting }
+                                    ">
+                                {{ item.name }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -108,73 +47,7 @@
         </div>
         <div class="w-3/4 h-[90%]">
             <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
-            <p>2</p>
+
             <p>2</p>
             <p>2</p>
             <p>2</p>
