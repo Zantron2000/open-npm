@@ -39,47 +39,26 @@
                 <div class="space-y-4">
                     <div *ngFor="let category of this.categories">
                         <div class="font-semibold pb-1 px-2">
-                            <p>{{ category.name }}</p>
+                            <p class="overflow-x-hidden text-ellipsis text-nowrap ">{{ category.name }}</p>
                         </div>
-                        <div class="space-x text-base space-y-1">
-                            <p *ngFor="let item of category.items"
-                                class="whitespace-nowrap overflow-x-hidden text-ellipsis px-2 rounded-lg" [ngClass]="
+                        <div class=" space-x text-base flex w-full items-center">
+                            <button *ngFor="let item of category.items" (click)="this.openEditor(category)"
+                                class="whitespace-nowrap overflow-x-hidden px-2 rounded-lg w-full flex justify-between items-center"
+                                [ngClass]="
                                     { 'bg-gray-400': item.editting, 'hover:bg-gray-300': !item.editting }
                                     ">
-                                {{ item.name }}
-                            </p>
+                                <p class="overflow-x-hidden text-ellipsis w-[80%] text-left">{{ item.name }}</p>
+                                <p class="w-[20%]">Edit</p>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="w-3/4 p-4">
-            <app-package-form />
-            <div class="h-full flex flex-row flex-wrap" *ngIf="false">
-                <div class="basis-1/2 flex justify-center items-center">
-                    <button
-                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
-                        Add a Type Declaration
-                    </button>
-                </div>
-                <div class="basis-1/2 flex justify-center items-center">
-                    <button
-                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
-                        Add a Variable
-                    </button>
-                </div>
-                <div class="basis-1/2 flex justify-center items-center">
-                    <button
-                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
-                        Add a Function
-                    </button>
-                </div>
-                <div class="basis-1/2 flex justify-center items-center">
-                    <button
-                        class="flex justify-center items-center w-[90%] h-[90%] border-4 duration-100 ease-in hover:border-[#009933] rounded-lg text-xl font-bold hover:text-[#009933]">
-                        Add a Class
-                    </button>
-                </div>
-            </div>
+            <app-package-form (packageCreated)="this.updatePackage($event)"
+                *ngIf="this.activeForm === this.formTypes.Package" [package]="this.package" />
+            <app-categories-form *ngIf="this.activeForm === this.formTypes.Categories"
+                (selectCategory)="this.selectComponent($event)" />
         </div>
     </div>
