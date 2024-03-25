@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PackageFormComponent } from './package-form/package-form.component';
 import { CategoriesFormComponent } from './categories-form/categories-form.component';
+import { TypeFormComponent } from './type-form/type-form.component';
 
 type Category = {
   name: string;
@@ -35,7 +36,7 @@ enum FormTypes {
 @Component({
   selector: 'app-builder',
   standalone: true,
-  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent],
+  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent, TypeFormComponent],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.css'
 })
