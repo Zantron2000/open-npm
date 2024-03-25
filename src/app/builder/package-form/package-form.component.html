@@ -1,10 +1,14 @@
 <div>
-    <form class="space-y-4">
+    <form #form="ngForm" class="space-y-4" (ngSubmit)="this.submit(form)">
         <div class="flex flex-col space-y-2">
             <label for="package-name" class="text-xl font-semibold">Package Name<span
                     class="text-red-500">*</span></label>
             <input type="text" name="package-name" id="package-name" placeholder="Enter package name"
-                class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.package.name" />
+                class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.package.name" #name="ngModel" />
+            <div class="text-red-500"
+                [ngClass]="{ 'block': name.getError('required') && this.submitted, 'invisible': !name.getError('required') || !this.submitted}">
+                Name is required
+            </div>
         </div>
         <div class="flex flex-col space-y-2">
             <label for="package-description" class="text-xl font-semibold">Package Description</label>
@@ -16,7 +20,12 @@
             <label for="package-version" class="text-xl font-semibold">Package Version<span
                     class="text-red-500">*</span></label>
             <input type="text" name="package-version" placeholder="Enter package version"
-                class="border p-2 rounded-xl text-lg w-fit" [(ngModel)]="this.package.version" />
+                class="border p-2 rounded-xl text-lg w-fit" [(ngModel)]="this.package.version" #version="ngModel"
+                required />
+            <div class="text-red-500"
+                [ngClass]="{ 'block': version.getError('required') && this.submitted, 'invisible': !version.getError('required') || !this.submitted}">
+                Version is required
+            </div>
         </div>
         <div class="flex justify-center">
             <button type="submit"
