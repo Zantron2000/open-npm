@@ -17,8 +17,15 @@ type Package = {
 })
 export class PackageFormComponent {
   @Output() packageCreated = new EventEmitter<Package>();
-  @Input() package: Package = { name: '', description: '', version: '' };
+  @Output() cancelUpdates = new EventEmitter();
+  @Input() currentPackage: Package = { name: '', description: '', version: '' };
+  @Input() newInstance: Boolean = true;
   submitted = false;
+  package: Package = JSON.parse(JSON.stringify(this.currentPackage));
+
+  ngOnInit() {
+    this.package = this.newInstance ? this.package : JSON.parse(JSON.stringify(this.currentPackage));
+  }
 
   submit(form: NgForm) {
     this.submitted = true;
@@ -27,5 +34,10 @@ export class PackageFormComponent {
       this.packageCreated.emit(this.package);
       this.submitted = false;
     }
+  }
+
+  cancelChanges() {
+    console.log(this.newInstance ? { name: '', description: '', version: '' } : this.currentPackage);
+    this.cancelUpdates.emit();
   }
 }

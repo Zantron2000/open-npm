@@ -49,6 +49,7 @@ export class BuilderComponent {
   formTypes = FormTypes;
   activeForm = FormTypes.Package;
   activeCategory: Category | null = null;
+  editting = false;
 
   sortMethods: SortMethod[] = [
     { name: 'Types', active: true },
@@ -81,9 +82,15 @@ export class BuilderComponent {
 
   openEditor(category: Category) {
     this.activeForm = category.form;
+    this.editting = true;
   }
 
   selectComponent(formType: FormTypes) {
     this.activeForm = formType;
+  }
+
+  cancelEdit() {
+    this.editting = false;
+    this.activeForm = FormTypes.Categories;
   }
 }

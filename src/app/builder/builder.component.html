@@ -56,8 +56,9 @@
             </div>
         </div>
         <div class="w-3/4 p-4">
-            <app-package-form (packageCreated)="this.updatePackage($event)"
-                *ngIf="this.activeForm === this.formTypes.Package" [package]="this.package" />
+            <app-package-form (packageCreated)="this.updatePackage($event)" [newInstance]="!this.editting"
+                *ngIf="this.activeForm === this.formTypes.Package" [currentPackage]="this.package"
+                (cancelUpdates)="this.cancelEdit()" />
             <app-categories-form *ngIf="this.activeForm === this.formTypes.Categories"
                 (selectCategory)="this.selectComponent($event)" />
         </div>
