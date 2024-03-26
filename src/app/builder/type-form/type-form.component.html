@@ -1,16 +1,23 @@
 <div>
-    <form class="space-y-4">
+    <form class="space-y-4" (ngSubmit)="this.submit(form)" #form="ngForm">
         <h1 class="text-3xl font-bold">Add a Type Description</h1>
         <div class="flex flex-col space-y-2">
             <label for="type-name" class="text-xl font-semibold">Type Name<span class="text-red-500">*</span></label>
             <input type="text" name="type-name" id="type-name" placeholder="Enter type name"
                 class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.typeDeclaration.name" />
+            <div class="text-red-500" [ngClass]="{ 'block': this.errors['name'], 'invisible': !this.errors['name'] }">
+                Name is required
+            </div>
         </div>
         <div class="flex flex-col space-y-2">
             <label for="type-import" class="text-xl font-semibold">Imported From<span
                     class="text-red-500">*</span></label>
             <input type="text" name="type-import" id="type-import" placeholder="Enter where to import the type from"
                 class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.typeDeclaration.import" />
+            <div class="text-red-500"
+                [ngClass]="{ 'block': this.errors['import'], 'invisible': !this.errors['import'] }">
+                Import Location is required
+            </div>
         </div>
         <div class="flex flex-col space-y-2">
             <label for="type-github" class="text-xl font-semibold">GitHub Link</label>
@@ -42,6 +49,10 @@
                         (input)="adjustHeight($event.target)">
                     </textarea>
                 </div>
+            </div>
+            <div class="text-red-500"
+                [ngClass]="{ 'block': this.errors['declaration'], 'invisible': !this.errors['declaration'] }">
+                Type is required
             </div>
         </div>
         <div class="flex items-center flex-col space-y-4">
