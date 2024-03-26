@@ -48,7 +48,7 @@ export class BuilderComponent {
     version: '',
   };
   formTypes = FormTypes;
-  activeForm = FormTypes.Package;
+  activeForm = FormTypes.TypeDeclaration;
   activeCategory: Category | null = null;
   editting = false;
 

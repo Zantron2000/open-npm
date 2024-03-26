@@ -37,7 +37,6 @@ export class PackageFormComponent {
   }
 
   cancelChanges() {
-    console.log(this.newInstance ? { name: '', description: '', version: '' } : this.currentPackage);
     this.cancelUpdates.emit();
   }
 }
