@@ -1,1 +1,49 @@
-<p>type-form works!</p>
+<div>
+    <form class="space-y-4">
+        <h1 class="text-3xl font-bold">Add a Type Description</h1>
+        <div class="flex flex-col space-y-2">
+            <label for="type-name" class="text-xl font-semibold">Type Name<span class="text-red-500">*</span></label>
+            <input type="text" name="type-name" id="type-nam</div>e" placeholder="Enter type name"
+                class="border p-2 rounded-xl text-lg" required />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="type-import" class="text-xl font-semibold">Imported From<span
+                    class="text-red-500">*</span></label>
+            <input type="text" name="type-import" id="type-import" placeholder="Enter where to import the type from"
+                class="border p-2 rounded-xl text-lg" required />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="type-github" class="text-xl font-semibold">GitHub Link</label>
+            <input type="text" name="type-github" id="type-github"
+                placeholder="Enter the GitHub link to where the type is declared"
+                class="border p-2 rounded-xl text-lg" />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="type-description" class="text-xl font-semibold">Type Description</label>
+            <textarea name="type-description" placeholder="Enter type description"
+                class="border p-2 rounded-xl text-lg h-1/2 h-40" id="type-description"></textarea>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="type-description" class="text-xl font-semibold">Declaration<span
+                    class="text-red-500">*</span></label>
+            <div class="border rounded-sm">
+                <div class="border-b p-2">
+                    <p>type {{ 'abc' }} =</p>
+                </div>
+                <div class="flex overflow-y-auto h-64">
+                    <div class="w-fit p-2 text-lg">
+                        <p *ngFor="let char of this.code.split('\n'); let i = index">{{ i + 1 }}</p>
+                    </div>
+                    <textarea name="type-description" placeholder="Enter type description" class="text-lg p-2 w-full "
+                        id="type-description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center flex-col space-y-4">
+            <button type="submit"
+                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2" required>
+                Create Package
+            </button>
+        </div>
+    </form>
+</div>
