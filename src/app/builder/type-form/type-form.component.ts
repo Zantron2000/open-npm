@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 type TypeDeclaration = {
@@ -18,6 +18,7 @@ type TypeDeclaration = {
   styleUrl: './type-form.component.css'
 })
 export class TypeFormComponent {
+  @Output() typeCreated = new EventEmitter<TypeDeclaration>();
   @Input() currentTypeDeclaration: TypeDeclaration = {
     name: '', import: '', github: '', description: '',
     declaration: ''
@@ -61,7 +62,7 @@ export class TypeFormComponent {
     }
 
     if (!hasErrors) {
-      console.log('No Errors')
+      this.typeCreated.emit(this.typeDeclaration);
     }
   }
 }

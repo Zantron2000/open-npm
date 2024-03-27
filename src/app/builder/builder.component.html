@@ -61,6 +61,7 @@
                 (cancelUpdates)="this.cancelEdit()" />
             <app-categories-form *ngIf="this.activeForm === this.formTypes.Categories"
                 (selectCategory)="this.selectComponent($event)" />
-            <app-type-form *ngIf="this.activeForm === this.formTypes.TypeDeclaration" />
+            <app-type-form *ngIf="this.activeForm === this.formTypes.TypeDeclaration"
+                (typeCreated)="this.upsertTypeDeclaration($event)" />
         </div>
     </div>

@@ -24,6 +24,14 @@ type Package = {
   version: string;
 };
 
+type TypeDeclaration = {
+  name: string;
+  import: string;
+  github: string;
+  description: string;
+  declaration: String;
+};
+
 enum FormTypes {
   Package = 0,
   Categories = 1,
@@ -47,8 +55,9 @@ export class BuilderComponent {
     description: '',
     version: '',
   };
+  typeDeclarations: TypeDeclaration[] = [];
   formTypes = FormTypes;
-  activeForm = FormTypes.TypeDeclaration;
+  activeForm = FormTypes.Package;
   activeCategory: Category | null = null;
   editting = false;
 
@@ -93,5 +102,38 @@ export class BuilderComponent {
   cancelEdit() {
     this.editting = false;
     this.activeForm = FormTypes.Categories;
+  }
+
+  upsertTypeDeclaration(typeDeclaration: TypeDeclaration) {
+    this.activeForm = FormTypes.Categories;
+    const typeIndex = this.typeDeclarations.findIndex((type) => type.name === typeDeclaration.name);
+    if (typeIndex === -1) {
+      this.typeDeclarations.push(typeDeclaration);
+    } else {
+      this.typeDeclarations[typeIndex] = typeDeclaration;
+    }
+
+    this.upsertCategoryItem('Types', typeDeclaration.name, FormTypes.TypeDeclaration);
+  }
+
+  upsertCategoryItem(categoryName: string, itemName: string, form: FormTypes) {
+    const categoryIndex = this.categories.findIndex((category) => category.name === categoryName);
+
+    if (categoryIndex === -1) {
+      this.categories.push({
+        name: categoryName,
+        form: form,
+        items: [
+          { name: itemName, editting: false }
+        ]
+      });
+    } else {
+      const itemIndex = this.categories[categoryIndex].items.findIndex((item) => item.name === itemName);
+      if (itemIndex === -1) {
+        this.categories[categoryIndex].items.push({ name: itemName, editting: false });
+      } else {
+        this.categories[categoryIndex].items[itemIndex] = { name: itemName, editting: false };
+      }
+    }
   }
 }
