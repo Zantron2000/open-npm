@@ -42,7 +42,7 @@
                             <p class="overflow-x-hidden text-ellipsis text-nowrap ">{{ category.name }}</p>
                         </div>
                         <div class=" space-x text-base flex w-full items-center">
-                            <button *ngFor="let item of category.items" (click)="this.openEditor(category)"
+                            <button *ngFor="let item of category.items" (click)="this.openEditor(category, item)"
                                 class="whitespace-nowrap overflow-x-hidden px-2 rounded-lg w-full flex justify-between items-center"
                                 [ngClass]="
                                     { 'bg-gray-400': item.editting, 'hover:bg-gray-300': !item.editting }
@@ -62,6 +62,7 @@
             <app-categories-form *ngIf="this.activeForm === this.formTypes.Categories"
                 (selectCategory)="this.selectComponent($event)" />
             <app-type-form *ngIf="this.activeForm === this.formTypes.TypeDeclaration"
-                (typeCreated)="this.upsertTypeDeclaration($event)" />
+                (typeCreated)="this.upsertTypeDeclaration($event)" [newInstance]="!this.editting"
+                [currentTypeDeclaration]="this.getEditTypeDeclaration()" (cancelUpdates)="this.cancelEdit()" />
         </div>
     </div>

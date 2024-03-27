@@ -4,13 +4,15 @@ import { PackageFormComponent } from './package-form/package-form.component';
 import { CategoriesFormComponent } from './categories-form/categories-form.component';
 import { TypeFormComponent } from './type-form/type-form.component';
 
+type CategoryItem = {
+  name: string;
+  editting: boolean;
+};
+
 type Category = {
   name: string;
   form: FormTypes;
-  items: {
-    name: string;
-    editting: boolean;
-  }[];
+  items: CategoryItem[];
 };
 
 type SortMethod = {
@@ -58,7 +60,7 @@ export class BuilderComponent {
   typeDeclarations: TypeDeclaration[] = [];
   formTypes = FormTypes;
   activeForm = FormTypes.Package;
-  activeCategory: Category | null = null;
+  activeCategoryItem: CategoryItem | null = null;
   editting = false;
 
   sortMethods: SortMethod[] = [
@@ -90,9 +92,15 @@ export class BuilderComponent {
     }
   }
 
-  openEditor(category: Category) {
+  openEditor(category: Category, categoryItem: CategoryItem) {
+    if (this.activeCategoryItem) {
+      this.activeCategoryItem.editting = false;
+    }
+
     this.activeForm = category.form;
     this.editting = true;
+    this.activeCategoryItem = categoryItem;
+    this.activeCategoryItem.editting = true;
   }
 
   selectComponent(formType: FormTypes) {
@@ -102,11 +110,15 @@ export class BuilderComponent {
   cancelEdit() {
     this.editting = false;
     this.activeForm = FormTypes.Categories;
+    if (this.activeCategoryItem) {
+      this.activeCategoryItem.editting = false;
+    }
+    this.activeCategoryItem = null;
   }
 
   upsertTypeDeclaration(typeDeclaration: TypeDeclaration) {
     this.activeForm = FormTypes.Categories;
-    const typeIndex = this.typeDeclarations.findIndex((type) => type.name === typeDeclaration.name);
+    const typeIndex = this.typeDeclarations.findIndex((type) => type.name === this.activeCategoryItem?.name);
     if (typeIndex === -1) {
       this.typeDeclarations.push(typeDeclaration);
     } else {
@@ -128,12 +140,22 @@ export class BuilderComponent {
         ]
       });
     } else {
-      const itemIndex = this.categories[categoryIndex].items.findIndex((item) => item.name === itemName);
+      const itemIndex = this.categories[categoryIndex].items.findIndex((item) => item.name === this.activeCategoryItem?.name);
       if (itemIndex === -1) {
         this.categories[categoryIndex].items.push({ name: itemName, editting: false });
       } else {
         this.categories[categoryIndex].items[itemIndex] = { name: itemName, editting: false };
       }
     }
+  }
+
+  getEditTypeDeclaration() {
+    return this.typeDeclarations.find((type) => type.name === this.activeCategoryItem?.name) || {
+      name: '',
+      import: '',
+      github: '',
+      description: '',
+      declaration: '',
+    };
   }
 }

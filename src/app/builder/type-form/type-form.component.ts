@@ -19,6 +19,7 @@ type TypeDeclaration = {
 })
 export class TypeFormComponent {
   @Output() typeCreated = new EventEmitter<TypeDeclaration>();
+  @Output() cancelUpdates = new EventEmitter();
   @Input() currentTypeDeclaration: TypeDeclaration = {
     name: '', import: '', github: '', description: '',
     declaration: ''
@@ -64,5 +65,9 @@ export class TypeFormComponent {
     if (!hasErrors) {
       this.typeCreated.emit(this.typeDeclaration);
     }
+  }
+
+  cancelChanges() {
+    this.cancelUpdates.emit();
   }
 }
