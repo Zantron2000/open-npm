@@ -41,7 +41,7 @@
                         <div class="font-semibold pb-1 px-2">
                             <p class="overflow-x-hidden text-ellipsis text-nowrap ">{{ category.name }}</p>
                         </div>
-                        <div class=" space-x text-base flex w-full items-center">
+                        <div class="flex-col space-y-2 text-base flex w-full items-center">
                             <button *ngFor="let item of category.items" (click)="this.openEditor(category, item)"
                                 class="whitespace-nowrap overflow-x-hidden px-2 rounded-lg w-full flex justify-between items-center"
                                 [ngClass]="
