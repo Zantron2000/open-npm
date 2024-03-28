@@ -1,1 +1,112 @@
-<p>variable-form works!</p>
+<div>
+    <form class="space-y-4" (ngSubmit)="this.submit(form)" #form="ngForm">
+        <h1 class="text-3xl font-bold">Add a Variable</h1>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-name" class="text-xl font-semibold">Variable Name<span
+                    class="text-red-500">*</span></label>
+            <input type="text" name="variable-name" id="variable-name" placeholder="Enter variable name"
+                class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.variable.name" />
+            <div class="text-red-500" [ngClass]="{ 'block': this.errors['name'], 'invisible': !this.errors['name'] }">
+                Name is required
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-import" class="text-xl font-semibold">Imported From<span
+                    class="text-red-500">*</span></label>
+            <input type="text" name="variable-import" id="variable-import"
+                placeholder="Enter where to import the variable from" class="border p-2 rounded-xl text-lg" required
+                [(ngModel)]="this.variable.import" />
+            <div class="text-red-500"
+                [ngClass]="{ 'block': this.errors['import'], 'invisible': !this.errors['import'] }">
+                Import Location is required
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-github" class="text-xl font-semibold">GitHub Link</label>
+            <input type="text" name="variable-github" id="variable-github"
+                placeholder="Enter the GitHub link to where the variable is declared"
+                class="border p-2 rounded-xl text-lg" [(ngModel)]="this.variable.github" />
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-description" class="text-xl font-semibold">Variable Description</label>
+            <textarea name="variable-description" placeholder="Enter variable description"
+                class="border p-2 rounded-xl text-lg h-1/2 h-40" id="variable-description"
+                [(ngModel)]="this.variable.description"></textarea>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-description" class="text-xl font-semibold">Variable Type</label>
+            <div class="border rounded-sm">
+                <div class="border-b p-2">
+                    <p>const <span class="font-bold">{{ this.variable.name || '(Variable Name)' }}</span>:</p>
+                </div>
+                <div class="flex overflow-y-auto h-64">
+                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                        <p *ngFor="let char of this.variable.type.split('\n'); let i = index">{{ i + 1 }}
+                        </p>
+                    </div>
+                    <textarea name="variable-description" placeholder="Enter variable description"
+                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                        id="variable-description" [(ngModel)]="this.variable.type"
+                        (input)="adjustHeight($event.target)">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-description" class="text-xl font-semibold">Variable Value<span
+                    class="text-red-500">*</span></label>
+            <div class="border rounded-sm">
+                <div class="border-b p-2">
+                    <p>const <span class="font-bold">{{ this.variable.name || '(Variable Name)' }}</span> =</p>
+                </div>
+                <div class="flex overflow-y-auto h-64">
+                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                        <p *ngFor="let char of this.variable.value.split('\n'); let i = index">{{ i + 1 }}
+                        </p>
+                    </div>
+                    <textarea name="variable-description" placeholder="Enter variable description"
+                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                        id="variable-description" [(ngModel)]="this.variable.value"
+                        (input)="adjustHeight($event.target)">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <label for="variable-description" class="text-xl font-semibold">Examples</label>
+            <div class="border rounded-sm">
+                <div class="border-b flex justify-between p-1">
+                    <p class="p-2 w-fit text-nowrap">Example Name<span class="text-red-500">*</span>:</p>
+                    <input type="text" name="variable-example" placeholder="Enter example name" class="p-2 w-[90%]" />
+                    <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1">Delete</button>
+                </div>
+                <div class="flex overflow-y-auto h-64">
+                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                        <p *ngFor="let char of this.variable.value.split('\n'); let i = index">{{ i + 1 }}
+                        </p>
+                    </div>
+                    <textarea name="variable-description" placeholder="Enter variable description"
+                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                        id="variable-description" [(ngModel)]="this.variable.value"
+                        (input)="adjustHeight($event.target)">
+                    </textarea>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <button
+                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12">Add
+                    Example</button>
+            </div>
+        </div>
+        <div class="flex items-center flex-col space-y-4">
+            <button type="submit"
+                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2" required>
+                Create Package
+            </button>
+            <button *ngIf="!this.newInstance" (click)="this.cancelChanges()"
+                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2">
+                Cancel Changes
+            </button>
+        </div>
+    </form>
+</div>
