@@ -36,7 +36,7 @@
                     class="text-red-500">*</span></label>
             <div class="border rounded-sm">
                 <div class="border-b p-2">
-                    <p>type {{ 'abc' }} =</p>
+                    <p>type <span class="font-bold">{{ this.typeDeclaration.name || '(Type Name)' }}</span> =</p>
                 </div>
                 <div class="flex overflow-y-auto h-64">
                     <div class="w-fit p-2 text-lg min-w-[40px] border-r">
