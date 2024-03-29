@@ -74,28 +74,32 @@
         </div>
         <div class="flex flex-col space-y-2">
             <label for="variable-description" class="text-xl font-semibold">Examples</label>
-            <div class="border rounded-sm">
+            <div class="border rounded-sm" *ngFor="let example of this.variable.examples; let i = index">
                 <div class="border-b flex justify-between p-1">
                     <p class="p-2 w-fit text-nowrap">Example Name<span class="text-red-500">*</span>:</p>
-                    <input type="text" name="variable-example" placeholder="Enter example name" class="p-2 w-[90%]" />
-                    <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1">Delete</button>
+                    <input type="text" name="variable-example" placeholder="Enter example name" class="p-2 w-[90%]"
+                        required [(ngModel)]="example.name" />
+                    <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1"
+                        (click)="this.removeExample(i)">Delete</button>
                 </div>
                 <div class="flex overflow-y-auto h-64">
                     <div class="w-fit p-2 text-lg min-w-[40px] border-r">
-                        <p *ngFor="let char of this.variable.value.split('\n'); let i = index">{{ i + 1 }}
+                        <p *ngFor="let char of example.value.split('\n'); let i = index">
+                            {{ i + 1 }}
                         </p>
                     </div>
-                    <textarea name="variable-description" placeholder="Enter variable description"
+                    <textarea name="variable-description" placeholder="Enter example code"
                         class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
-                        id="variable-description" [(ngModel)]="this.variable.value"
-                        (input)="adjustHeight($event.target)">
+                        id="variable-description" [(ngModel)]="example.value" (input)="adjustHeight($event.target)">
                     </textarea>
                 </div>
             </div>
             <div class="flex justify-center">
                 <button
-                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12">Add
-                    Example</button>
+                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
+                    (click)="this.addExample()">
+                    Add Example
+                </button>
             </div>
         </div>
         <div class="flex items-center flex-col space-y-4">

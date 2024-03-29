@@ -9,7 +9,10 @@ type Variable = {
   description: string;
   type: string;
   value: string;
-  examples: string[];
+  examples: {
+    name: string;
+    value: string;
+  }[];
 };
 
 @Component({
@@ -24,7 +27,9 @@ export class VariableFormComponent {
   @Output() cancelUpdates = new EventEmitter();
   @Input() currentVariable: Variable = {
     name: '', import: '', github: '', description: '',
-    value: '', type: '', examples: []
+    value: '', type: '', examples: [{
+      name: '', value: ''
+    }]
   };
   @Input() newInstance: Boolean = true;
   errors: { [key: string]: string } = {};
@@ -51,5 +56,20 @@ export class VariableFormComponent {
 
   cancelChanges() {
     this.cancelUpdates.emit();
+  }
+
+  addExample() {
+    this.variable.examples.push({
+      name: '',
+      value: ''
+    });
+  }
+
+  removeExample(index: number) {
+    this.variable.examples.splice(index, 1);
+
+    if (this.variable.examples.length === 0) {
+      this.addExample();
+    }
   }
 }
