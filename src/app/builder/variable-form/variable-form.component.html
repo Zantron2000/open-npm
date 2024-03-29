@@ -7,7 +7,7 @@
             <input type="text" name="variable-name" id="variable-name" placeholder="Enter variable name"
                 class="border p-2 rounded-xl text-lg" required [(ngModel)]="this.variable.name" />
             <div class="text-red-500" [ngClass]="{ 'block': this.errors['name'], 'invisible': !this.errors['name'] }">
-                Name is required
+                {{ this.errors['name'] }}
             </div>
         </div>
         <div class="flex flex-col space-y-2">
@@ -18,7 +18,7 @@
                 [(ngModel)]="this.variable.import" />
             <div class="text-red-500"
                 [ngClass]="{ 'block': this.errors['import'], 'invisible': !this.errors['import'] }">
-                Import Location is required
+                {{ this.errors['import'] }}
             </div>
         </div>
         <div class="flex flex-col space-y-2">
@@ -93,11 +93,19 @@
                         id="variable-description" [(ngModel)]="example.value" (input)="adjustHeight($event.target)">
                     </textarea>
                 </div>
+                <div class="text-red-500"
+                    [ngClass]="{ 'block': this.errors.examples[i].name, 'invisible': !this.errors.examples[i].name }">
+                    {{ this.errors.examples[i].name }}
+                </div>
+                <div class="text-red-500"
+                    [ngClass]="{ 'block': this.errors.examples[i].value, 'invisible': !this.errors.examples[i].value }">
+                    {{ this.errors.examples[i].value }}
+                </div>
             </div>
             <div class="flex justify-center">
                 <button
                     class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
-                    (click)="this.addExample()">
+                    (click)="this.addExample()" type="button">
                     Add Example
                 </button>
             </div>
@@ -108,7 +116,8 @@
                 Create Package
             </button>
             <button *ngIf="!this.newInstance" (click)="this.cancelChanges()"
-                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2">
+                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2"
+                type="button">
                 Cancel Changes
             </button>
         </div>

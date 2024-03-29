@@ -15,6 +15,19 @@ type Variable = {
   }[];
 };
 
+type VariableErrors = {
+  name: string;
+  import: string;
+  github: string;
+  description: string;
+  type: string;
+  value: string;
+  examples: {
+    name: string;
+    value: string;
+  }[];
+}
+
 @Component({
   selector: 'app-variable-form',
   standalone: true,
@@ -27,12 +40,10 @@ export class VariableFormComponent {
   @Output() cancelUpdates = new EventEmitter();
   @Input() currentVariable: Variable = {
     name: '', import: '', github: '', description: '',
-    value: '', type: '', examples: [{
-      name: '', value: ''
-    }]
+    value: '', type: '', examples: []
   };
   @Input() newInstance: Boolean = true;
-  errors: { [key: string]: string } = {};
+  errors: VariableErrors = { name: '', import: '', github: '', description: '', type: '', value: '', examples: [] };
   variable: Variable = JSON.parse(JSON.stringify(this.currentVariable));
 
   ngOnInit() {
@@ -49,6 +60,38 @@ export class VariableFormComponent {
   submit(form: NgForm) {
     let hasErrors = false;
 
+    if (!this.variable.name.trim()) {
+      this.errors.name = 'Name is required';
+      hasErrors = true;
+    } else {
+      this.errors.name = '';
+    }
+
+    if (!this.variable.import.trim()) {
+      this.errors.import = 'Import is required';
+      hasErrors = true;
+    } else {
+      this.errors.import = '';
+    }
+
+    this.variable.examples.forEach((example, index) => {
+      if (!example.name.trim()) {
+        this.errors.examples[index].name = 'Name is required';
+        hasErrors = true;
+      } else {
+        this.errors.examples[index].name = '';
+      }
+
+      if (!example.value.trim()) {
+        this.errors.examples[index].value = 'Value is required';
+        hasErrors = true;
+      } else {
+        this.errors.examples[index].value = '';
+      }
+    });
+
+    console.log(this.errors)
+
     if (!hasErrors) {
       this.variableCreated.emit(this.variable);
     }
@@ -63,13 +106,11 @@ export class VariableFormComponent {
       name: '',
       value: ''
     });
+    this.errors.examples.push({ name: '', value: '' });
   }
 
   removeExample(index: number) {
     this.variable.examples.splice(index, 1);
-
-    if (this.variable.examples.length === 0) {
-      this.addExample();
-    }
+    this.errors.examples.splice(index, 1);
   }
 }
