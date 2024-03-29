@@ -113,7 +113,7 @@
         <div class="flex items-center flex-col space-y-4">
             <button type="submit"
                 class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2" required>
-                Create Package
+                {{ this.newInstance ? 'Add Variable' : 'Update Variable' }}
             </button>
             <button *ngIf="!this.newInstance" (click)="this.cancelChanges()"
                 class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2"

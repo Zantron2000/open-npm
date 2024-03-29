@@ -90,8 +90,6 @@ export class VariableFormComponent {
       }
     });
 
-    console.log(this.errors)
-
     if (!hasErrors) {
       this.variableCreated.emit(this.variable);
     }

@@ -64,5 +64,8 @@
             <app-type-form *ngIf="this.activeForm === this.formTypes.TypeDeclaration"
                 (typeCreated)="this.upsertTypeDeclaration($event)" [newInstance]="!this.editting"
                 [currentTypeDeclaration]="this.getEditTypeDeclaration()" (cancelUpdates)="this.cancelEdit()" />
+            <app-variable-form *ngIf="this.activeForm === this.formTypes.Variable"
+                (variableCreated)="this.upsertVariable($event)" [newInstance]="!this.editting"
+                [currentVariable]="this.getEditVariable()" (cancelUpdates)="this.cancelEdit()" />
         </div>
     </div>

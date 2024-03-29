@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { PackageFormComponent } from './package-form/package-form.component';
 import { CategoriesFormComponent } from './categories-form/categories-form.component';
 import { TypeFormComponent } from './type-form/type-form.component';
+import { VariableFormComponent } from './variable-form/variable-form.component';
 
 type CategoryItem = {
   name: string;
@@ -43,10 +44,23 @@ enum FormTypes {
   Class = 5,
 }
 
+type Variable = {
+  name: string;
+  import: string;
+  github: string;
+  description: string;
+  type: string;
+  value: string;
+  examples: {
+    name: string;
+    value: string;
+  }[];
+};
+
 @Component({
   selector: 'app-builder',
   standalone: true,
-  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent, TypeFormComponent],
+  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent, TypeFormComponent, VariableFormComponent],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.css'
 })
@@ -58,6 +72,7 @@ export class BuilderComponent {
     version: '',
   };
   typeDeclarations: TypeDeclaration[] = [];
+  variables: Variable[] = [];
   formTypes = FormTypes;
   activeForm = FormTypes.Package;
   activeCategoryItem: CategoryItem | null = null;
@@ -128,6 +143,18 @@ export class BuilderComponent {
     this.upsertCategoryItem('Types', typeDeclaration.name, FormTypes.TypeDeclaration);
   }
 
+  upsertVariable(variable: Variable) {
+    this.activeForm = FormTypes.Categories;
+    const variableIndex = this.variables.findIndex((variable) => variable.name === this.activeCategoryItem?.name);
+    if (variableIndex === -1) {
+      this.variables.push(variable);
+    } else {
+      this.variables[variableIndex] = variable;
+    }
+
+    this.upsertCategoryItem('Variables', variable.name, FormTypes.Variable);
+  }
+
   upsertCategoryItem(categoryName: string, itemName: string, form: FormTypes) {
     const categoryIndex = this.categories.findIndex((category) => category.name === categoryName);
 
@@ -156,6 +183,18 @@ export class BuilderComponent {
       github: '',
       description: '',
       declaration: '',
+    };
+  }
+
+  getEditVariable() {
+    return this.variables.find((variable) => variable.name === this.activeCategoryItem?.name) || {
+      name: '',
+      import: '',
+      github: '',
+      description: '',
+      type: '',
+      value: '',
+      examples: [],
     };
   }
 }
