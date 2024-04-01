@@ -1,6 +1,4 @@
-<p>viewer works!</p>
 <div>
-    <ngs-code-editor theme="vs-dark"  language="json" [options]="options"> </ngs-code-editor>
-  
-<script src="main.js"></script>
+    <ngs-code-editor  [codeModel]="model" [options]="options" (valueChanged)="onCodeChanged($event)"></ngs-code-editor>
+
 </div>
