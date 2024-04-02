@@ -98,7 +98,7 @@ export class FunctionFormComponent {
       type: '',
       description: '',
       default: '',
-      required: false
+      required: true
     });
     this.errors.params.push({ name: '', type: '', description: '', default: '', required: '' });
   }

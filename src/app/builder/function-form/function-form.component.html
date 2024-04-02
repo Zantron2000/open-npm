@@ -43,6 +43,13 @@
                     <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1"
                         (click)="this.removeParam(i)">Delete</button>
                 </div>
+                <div class="border-b flex justify-between p-1">
+                    <label [htmlFor]="'function-param-d-' + i" class="p-2">
+                        Description
+                    </label>
+                    <textarea [name]="'function-param-d-' + i" placeholder="Enter param description"
+                        [id]="'function-param-d-' + i" class="w-full p-2"></textarea>
+                </div>
                 <div class="flex overflow-y-auto h-64">
                     <div class="w-fit p-2 text-lg min-w-[40px] border-r">
                         <p *ngFor="let char of param.type.split('\n'); let i = index">
@@ -52,6 +59,23 @@
                     <textarea [name]="'function-param-type-' + i" placeholder="Enter param type"
                         class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
                         [id]="'function-param-type-' + i" [(ngModel)]="param.type"
+                        (input)="adjustHeight($event.target)">
+                    </textarea>
+                </div>
+                <div class="border flex justify-start items-center px-2 py-1">
+                    <label [htmlFor]="'function-param-r-' + i">Required Value</label>
+                    <input type="checkbox" [name]="'function-param-r-' + i" [id]="'function-param-r-' + i" class="m-2"
+                        [(ngModel)]="param.required" />
+                </div>
+                <div class="flex overflow-y-auto h-64" *ngIf="!param.required">
+                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                        <p *ngFor="let char of param.default.split('\n'); let i = index">
+                            {{ i + 1 }}
+                        </p>
+                    </div>
+                    <textarea [name]="'function-param-default-' + i" placeholder="Enter param default value (if any)"
+                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                        [id]="'function-param-default-' + i" [(ngModel)]="param.default"
                         (input)="adjustHeight($event.target)">
                     </textarea>
                 </div>
