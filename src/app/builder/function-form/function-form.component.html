@@ -99,13 +99,13 @@
                     [ngClass]="{ 'block': this.errors.params[i].default, 'invisible': !this.errors.params[i].default }">
                     {{ this.errors.params[i].default }}
                 </div>
-                <div class="flex justify-center">
-                    <button
-                        class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
-                        (click)="this.addParam()" type="button">
-                        Add Parameter
-                    </button>
-                </div>
+            </div>
+            <div class="flex justify-center">
+                <button
+                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
+                    (click)="this.addParam()" type="button">
+                    Add Parameter
+                </button>
             </div>
             <div class="flex flex-col space-y-2">
                 <label for="function-return" class="text-xl font-semibold">Return Value</label>

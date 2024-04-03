@@ -69,6 +69,8 @@ export class FunctionFormComponent {
 
   ngOnInit() {
     this.function = this.newInstance ? this.function : JSON.parse(JSON.stringify(this.currentFunction));
+    this.errors.examples = this.function.examples.map(() => ({ name: '', value: '' }));
+    this.errors.params = this.function.params.map(() => ({ name: '', type: '', description: '', default: '', required: '' }));
   }
 
   adjustHeight(target: EventTarget | null) {
@@ -112,8 +114,11 @@ export class FunctionFormComponent {
   }
 
   submit(form: NgForm) {
-    const { errors } = validateFunction(this.function);
+    const { errors, isValid } = validateFunction(this.function);
 
     this.errors = errors;
+    if (isValid) {
+      this.functionCreated.emit(this.function);
+    }
   }
 }
