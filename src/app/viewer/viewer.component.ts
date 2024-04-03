@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
 import { CodeEditorModule } from '@ngstack/code-editor';
@@ -10,7 +10,9 @@ import { CodeEditorModule } from '@ngstack/code-editor';
   styleUrls: ['./viewer.component.css']
 })
 export class ViewerComponent {
-  theme = 'vs-dark';
+  @Input() activeTheme = 'vs';
+  @Input() readOnly = false;
+  
 
   model: CodeModel = {
     language: 'json',
