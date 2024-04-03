@@ -97,6 +97,35 @@
             </div>
         </div>
         <div class="flex flex-col space-y-2">
+            <label for="function-return" class="text-xl font-semibold">Return Value</label>
+            <div class="border rounded-sm">
+                <div class="border flex justify-start items-center px-2 py-1">
+                    <label for="function-return-required">Function returns a value</label>
+                    <input type="checkbox" name="function-return-required" id="function-return-required" class="m-2"
+                        [(ngModel)]="this.function.returns.required" />
+                </div>
+                <div class="border-b flex justify-between p-1" *ngIf="this.function.returns.required">
+                    <label for="function-return-description" class="p-2">
+                        Description
+                    </label>
+                    <textarea placeholder="Enter return description" id="function-return-description" class="w-full p-2"
+                        name="function-return-description"></textarea>
+                </div>
+                <div class="flex overflow-y-auto h-64" *ngIf="this.function.returns.required">
+                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                        <p *ngFor="let char of this.function.returns.type.split('\n'); let i = index">
+                            {{ i + 1 }}
+                        </p>
+                    </div>
+                    <textarea name="function-return-type" placeholder="Enter return type"
+                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                        id="function-return-type" [(ngModel)]="this.function.returns.type"
+                        (input)="adjustHeight($event.target)">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
             <label for="function-examples" class="text-xl font-semibold">Examples</label>
             <div class="border rounded-sm" *ngFor="let example of this.function.examples; let i = index">
                 <div class="border-b flex justify-between p-1">

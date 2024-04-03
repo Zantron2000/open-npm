@@ -19,6 +19,7 @@ type Function = {
     required: boolean;
   }[];
   returns: {
+    required: boolean;
     type: string;
     description: string;
   };
@@ -41,9 +42,10 @@ type FunctionErrors = {
     required: string;
   }[];
   returns: {
+    required: string;
     type: string;
     description: string;
-  } | null;
+  };
 }
 
 @Component({
@@ -58,10 +60,10 @@ export class FunctionFormComponent {
   @Output() cancelUpdates = new EventEmitter();
   @Input() currentFunction: Function = {
     name: '', import: '', github: '', description: '',
-    examples: [], params: [], returns: { type: '', description: '' }
+    examples: [], params: [], returns: { required: true, type: '', description: '' }
   };
   @Input() newInstance: Boolean = true;
-  errors: FunctionErrors = { name: '', import: '', github: '', description: '', examples: [], params: [], returns: { type: '', description: '' } };
+  errors: FunctionErrors = { name: '', import: '', github: '', description: '', examples: [], params: [], returns: { required: '', type: '', description: '' } };
   function: Function = JSON.parse(JSON.stringify(this.currentFunction));
 
   ngOnInit() {
