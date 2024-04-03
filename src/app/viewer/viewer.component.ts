@@ -2,6 +2,7 @@ import { Component,Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
 import { CodeEditorModule } from '@ngstack/code-editor';
+
 @Component({
   selector: 'app-viewer',
   standalone: true,
@@ -27,10 +28,17 @@ export class ViewerComponent {
     }
   };
 
+  onCodeChanged(value: string){
+    console.log('CODE CHANGED', value);
+  }
+
   // Remove npm package dependencies and only keep Angular module dependencies
   dependencies: string[] = [
     '@angular/core',
     '@angular/common',
     '@ngstack/code-editor'
   ];
+  
 }
+
+
