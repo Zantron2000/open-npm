@@ -26,12 +26,20 @@
             <input type="text" name="function-github" id="function-github"
                 placeholder="Enter the GitHub link to where the function is declared"
                 class="border p-2 rounded-xl text-lg" [(ngModel)]="this.function.github" />
+            <div class="text-red-500"
+                [ngClass]="{ 'block': this.errors['import'], 'invisible': !this.errors['import'] }">
+                {{ this.errors['github'] }}
+            </div>
         </div>
         <div class="flex flex-col space-y-2">
             <label for="function-description" class="text-xl font-semibold">Function Description</label>
             <textarea name="function-description" placeholder="Enter function description"
                 class="border p-2 rounded-xl text-lg h-1/2 h-40" id="function-description"
                 [(ngModel)]="this.function.description"></textarea>
+            <div class="text-red-500"
+                [ngClass]="{ 'block': this.errors['import'], 'invisible': !this.errors['import'] }">
+                {{ this.errors['description'] }}
+            </div>
         </div>
         <div class="flex flex-col space-y-2">
             <label for="function-parameters" class="text-xl font-semibold">Parameters</label>
@@ -87,93 +95,102 @@
                     [ngClass]="{ 'block': this.errors.params[i].type, 'invisible': !this.errors.params[i].type }">
                     {{ this.errors.params[i].type }}
                 </div>
+                <div class="text-red-500"
+                    [ngClass]="{ 'block': this.errors.params[i].default, 'invisible': !this.errors.params[i].default }">
+                    {{ this.errors.params[i].default }}
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
+                        (click)="this.addParam()" type="button">
+                        Add Parameter
+                    </button>
+                </div>
             </div>
-            <div class="flex justify-center">
-                <button
-                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
-                    (click)="this.addParam()" type="button">
-                    Add Parameter
+            <div class="flex flex-col space-y-2">
+                <label for="function-return" class="text-xl font-semibold">Return Value</label>
+                <div class="border rounded-sm">
+                    <div class="border flex justify-start items-center px-2 py-1">
+                        <label for="function-return-required">Function returns a value</label>
+                        <input type="checkbox" name="function-return-required" id="function-return-required" class="m-2"
+                            [(ngModel)]="this.function.returns.required" />
+                    </div>
+                    <div class="border-b flex justify-between p-1" *ngIf="this.function.returns.required">
+                        <label for="function-return-description" class="p-2">
+                            Description
+                        </label>
+                        <textarea placeholder="Enter return description" id="function-return-description"
+                            class="w-full p-2" name="function-return-description"></textarea>
+                    </div>
+                    <div class="flex overflow-y-auto h-64" *ngIf="this.function.returns.required">
+                        <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                            <p *ngFor="let char of this.function.returns.type.split('\n'); let i = index">
+                                {{ i + 1 }}
+                            </p>
+                        </div>
+                        <textarea name="function-return-type" placeholder="Enter return type"
+                            class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                            id="function-return-type" [(ngModel)]="this.function.returns.type"
+                            (input)="adjustHeight($event.target)">
+                    </textarea>
+                    </div>
+                    <div class="text-red-500"
+                        [ngClass]="{ 'block': this.errors.returns.type, 'invisible': !this.errors.returns.type }">
+                        {{ this.errors.returns.type }}
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <label for="function-examples" class="text-xl font-semibold">Examples</label>
+                <div class="border rounded-sm" *ngFor="let example of this.function.examples; let i = index">
+                    <div class="border-b flex justify-between p-1">
+                        <p class="p-2 w-fit text-nowrap">Example Name<span class="text-red-500">*</span>:</p>
+                        <input type="text" [name]="'function-example-n-' + i" placeholder="Enter example name"
+                            class="p-2 w-[90%]" required [(ngModel)]="example.name" />
+                        <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1"
+                            (click)="this.removeExample(i)">Delete</button>
+                    </div>
+                    <div class="flex overflow-y-auto h-64">
+                        <div class="w-fit p-2 text-lg min-w-[40px] border-r">
+                            <p *ngFor="let char of example.value.split('\n'); let i = index">
+                                {{ i + 1 }}
+                            </p>
+                        </div>
+                        <textarea [name]="'function-example-v-' + i" placeholder="Enter example code"
+                            class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
+                            [id]="'function-example-v-' + i" [(ngModel)]="example.value"
+                            (input)="adjustHeight($event.target)">
+                    </textarea>
+                    </div>
+                    <div class="text-red-500"
+                        [ngClass]="{ 'block': this.errors.examples[i].name, 'invisible': !this.errors.examples[i].name }">
+                        {{ this.errors.examples[i].name }}
+                    </div>
+                    <div class="text-red-500"
+                        [ngClass]="{ 'block': this.errors.examples[i].value, 'invisible': !this.errors.examples[i].value }">
+                        {{ this.errors.examples[i].value }}
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
+                        (click)="this.addExample()" type="button">
+                        Add Example
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center flex-col space-y-4">
+                <button type="submit"
+                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2"
+                    required>
+                    {{ this.newInstance ? 'Add Function' : 'Update Function' }}
+                </button>
+                <button *ngIf="!this.newInstance" (click)="this.cancelChanges()"
+                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2"
+                    type="button">
+                    Cancel Changes
                 </button>
             </div>
-        </div>
-        <div class="flex flex-col space-y-2">
-            <label for="function-return" class="text-xl font-semibold">Return Value</label>
-            <div class="border rounded-sm">
-                <div class="border flex justify-start items-center px-2 py-1">
-                    <label for="function-return-required">Function returns a value</label>
-                    <input type="checkbox" name="function-return-required" id="function-return-required" class="m-2"
-                        [(ngModel)]="this.function.returns.required" />
-                </div>
-                <div class="border-b flex justify-between p-1" *ngIf="this.function.returns.required">
-                    <label for="function-return-description" class="p-2">
-                        Description
-                    </label>
-                    <textarea placeholder="Enter return description" id="function-return-description" class="w-full p-2"
-                        name="function-return-description"></textarea>
-                </div>
-                <div class="flex overflow-y-auto h-64" *ngIf="this.function.returns.required">
-                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
-                        <p *ngFor="let char of this.function.returns.type.split('\n'); let i = index">
-                            {{ i + 1 }}
-                        </p>
-                    </div>
-                    <textarea name="function-return-type" placeholder="Enter return type"
-                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
-                        id="function-return-type" [(ngModel)]="this.function.returns.type"
-                        (input)="adjustHeight($event.target)">
-                    </textarea>
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-col space-y-2">
-            <label for="function-examples" class="text-xl font-semibold">Examples</label>
-            <div class="border rounded-sm" *ngFor="let example of this.function.examples; let i = index">
-                <div class="border-b flex justify-between p-1">
-                    <p class="p-2 w-fit text-nowrap">Example Name<span class="text-red-500">*</span>:</p>
-                    <input type="text" [name]="'function-example-n-' + i" placeholder="Enter example name"
-                        class="p-2 w-[90%]" required [(ngModel)]="example.name" />
-                    <button class="p-1 border border-black/0 hover:border-gray-400 rounded-lg m-1"
-                        (click)="this.removeExample(i)">Delete</button>
-                </div>
-                <div class="flex overflow-y-auto h-64">
-                    <div class="w-fit p-2 text-lg min-w-[40px] border-r">
-                        <p *ngFor="let char of example.value.split('\n'); let i = index">
-                            {{ i + 1 }}
-                        </p>
-                    </div>
-                    <textarea [name]="'function-example-v-' + i" placeholder="Enter example code"
-                        class="text-lg p-2 w-full flex-auto overflow-y-hidden focus:outline-none resize-none block min-h-full h-[auto] text-black"
-                        [id]="'function-example-v-' + i" [(ngModel)]="example.value"
-                        (input)="adjustHeight($event.target)">
-                    </textarea>
-                </div>
-                <div class="text-red-500"
-                    [ngClass]="{ 'block': this.errors.examples[i].name, 'invisible': !this.errors.examples[i].name }">
-                    {{ this.errors.examples[i].name }}
-                </div>
-                <div class="text-red-500"
-                    [ngClass]="{ 'block': this.errors.examples[i].value, 'invisible': !this.errors.examples[i].value }">
-                    {{ this.errors.examples[i].value }}
-                </div>
-            </div>
-            <div class="flex justify-center">
-                <button
-                    class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2 mb-12"
-                    (click)="this.addExample()" type="button">
-                    Add Example
-                </button>
-            </div>
-        </div>
-        <div class="flex items-center flex-col space-y-4">
-            <button type="submit"
-                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2" required>
-                {{ this.newInstance ? 'Add Function' : 'Update Function' }}
-            </button>
-            <button *ngIf="!this.newInstance" (click)="this.cancelChanges()"
-                class="hover:bg-[#007733] bg-[#009933] text-white text-xl font-semibold rounded-xl p-2 w-1/2"
-                type="button">
-                Cancel Changes
-            </button>
         </div>
     </form>
 </div>

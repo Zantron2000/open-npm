@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { validateFunction } from '../../../utils/functions';
 
 type Function = {
   name: string;
@@ -111,6 +112,8 @@ export class FunctionFormComponent {
   }
 
   submit(form: NgForm) {
+    const { errors } = validateFunction(this.function);
 
+    this.errors = errors;
   }
 }
