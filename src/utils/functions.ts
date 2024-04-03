@@ -127,6 +127,10 @@ const functionSchema: JSONSchemaType<Function> = {
 }
 
 export const validateFunction = (data: Function): { errors: FunctionErrors, isValid: Boolean } => {
+    if (!data['returns']?.required) {
+        data.returns.type = ' ';
+    }
+
     const errors: FunctionErrors = {
         name: "",
         import: "",
@@ -167,6 +171,13 @@ export const validateFunction = (data: Function): { errors: FunctionErrors, isVa
             }
         });
     });
+
+    console.log(validate.errors);
+
+    if (!data['returns']?.required) {
+        errors.returns.type = '';
+        errors.returns.description = '';
+    }
 
     return {
         errors,
