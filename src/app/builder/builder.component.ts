@@ -58,6 +58,29 @@ type Variable = {
   }[];
 };
 
+type Function = {
+  name: string;
+  import: string;
+  github: string;
+  description: string;
+  examples: {
+    name: string;
+    value: string;
+  }[];
+  params: {
+    name: string;
+    type: string;
+    description: string;
+    default: string;
+    required: boolean;
+  }[];
+  returns: {
+    required: boolean;
+    type: string;
+    description: string;
+  };
+}
+
 @Component({
   selector: 'app-builder',
   standalone: true,
@@ -74,6 +97,7 @@ export class BuilderComponent {
   };
   typeDeclarations: TypeDeclaration[] = [];
   variables: Variable[] = [];
+  functions: Function[] = [];
   formTypes = FormTypes;
   activeForm = FormTypes.Package;
   activeCategoryItem: CategoryItem | null = null;
@@ -156,6 +180,20 @@ export class BuilderComponent {
     this.upsertCategoryItem('Variables', variable.name, FormTypes.Variable);
   }
 
+  upsertFunction(func: Function) {
+    console.log(func)
+
+    this.activeForm = FormTypes.Categories;
+    const functionIndex = this.functions.findIndex((func) => func.name === this.activeCategoryItem?.name);
+    if (functionIndex === -1) {
+      this.functions.push(func);
+    } else {
+      this.functions[functionIndex] = func;
+    }
+
+    this.upsertCategoryItem('Functions', func.name, FormTypes.Function);
+  }
+
   upsertCategoryItem(categoryName: string, itemName: string, form: FormTypes) {
     const categoryIndex = this.categories.findIndex((category) => category.name === categoryName);
 
@@ -196,6 +234,24 @@ export class BuilderComponent {
       type: '',
       value: '',
       examples: [],
+    };
+  }
+
+  getEditFunction() {
+    console.log(this.functions.find((func) => func.name === this.activeCategoryItem?.name))
+
+    return this.functions.find((func) => func.name === this.activeCategoryItem?.name) || {
+      name: '',
+      import: '',
+      github: '',
+      description: '',
+      examples: [],
+      params: [],
+      returns: {
+        required: true,
+        type: '',
+        description: '',
+      },
     };
   }
 }
