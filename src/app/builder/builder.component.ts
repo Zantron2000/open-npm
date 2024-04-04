@@ -5,6 +5,7 @@ import { CategoriesFormComponent } from './categories-form/categories-form.compo
 import { TypeFormComponent } from './type-form/type-form.component';
 import { VariableFormComponent } from './variable-form/variable-form.component';
 import { FunctionFormComponent } from './function-form/function-form.component';
+import { ClassFormComponent } from './class-form/class-form.component';
 
 type CategoryItem = {
   name: string;
@@ -84,7 +85,7 @@ type Function = {
 @Component({
   selector: 'app-builder',
   standalone: true,
-  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent, TypeFormComponent, VariableFormComponent, FunctionFormComponent],
+  imports: [CommonModule, PackageFormComponent, CategoriesFormComponent, TypeFormComponent, VariableFormComponent, FunctionFormComponent, ClassFormComponent],
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.css'
 })
