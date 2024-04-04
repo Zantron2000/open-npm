@@ -70,6 +70,7 @@
             <app-function-form *ngIf="this.activeForm === this.formTypes.Function"
                 (functionCreated)="this.upsertFunction($event)" [newInstance]="!this.editting"
                 [currentFunction]="this.getEditFunction()" (cancelUpdates)="this.cancelEdit()" />
-            <app-class-form *ngIf="this.activeForm === this.formTypes.Class" (cancelUpdates)="this.cancelEdit()" />
+            <app-class-form *ngIf="this.activeForm === this.formTypes.Class" (classCreated)="this.upsertClass($event)"
+                [newInstance]="!this.editting" [currentCls]="this.getEditClass()" (cancelUpdates)="this.cancelEdit()" />
         </div>
     </div>

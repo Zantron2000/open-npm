@@ -82,6 +82,63 @@ type Function = {
   };
 }
 
+type Class = {
+  name: string;
+  import: string;
+  github: string;
+  description: string;
+  extends: {
+    name: string;
+    import: string;
+  };
+  implements: {
+    name: string;
+    import: string;
+  }[];
+  examples: {
+    name: string;
+    value: string;
+  }[];
+  properties: {
+    name: string;
+    type: string;
+    description: string;
+  }[];
+  methods: {
+    name: string;
+    description: string;
+    github: string;
+    static: boolean;
+    examples: {
+      name: string;
+      value: string;
+    }[];
+    params: {
+      name: string;
+      type: string;
+      description: string;
+      default: string;
+      required: boolean;
+    }[];
+    returns: {
+      required: boolean;
+      type: string;
+      description: string;
+    };
+  }[];
+  constructors: {
+    description: string;
+    github: string;
+    params: {
+      name: string;
+      type: string;
+      description: string;
+      default: string;
+      required: boolean;
+    }[];
+  }[];
+};
+
 @Component({
   selector: 'app-builder',
   standalone: true,
@@ -99,6 +156,7 @@ export class BuilderComponent {
   typeDeclarations: TypeDeclaration[] = [];
   variables: Variable[] = [];
   functions: Function[] = [];
+  classes: Class[] = [];
   formTypes = FormTypes;
   activeForm = FormTypes.Package;
   activeCategoryItem: CategoryItem | null = null;
@@ -216,6 +274,18 @@ export class BuilderComponent {
     }
   }
 
+  upsertClass(cls: Class) {
+    this.activeForm = FormTypes.Categories;
+    const classIndex = this.classes.findIndex((cls) => cls.name === this.activeCategoryItem?.name);
+    if (classIndex === -1) {
+      this.classes.push(cls);
+    } else {
+      this.classes[classIndex] = cls;
+    }
+
+    this.upsertCategoryItem('Classes', cls.name, FormTypes.Class);
+  }
+
   getEditTypeDeclaration() {
     return this.typeDeclarations.find((type) => type.name === this.activeCategoryItem?.name) || {
       name: '',
@@ -239,8 +309,6 @@ export class BuilderComponent {
   }
 
   getEditFunction() {
-    console.log(this.functions.find((func) => func.name === this.activeCategoryItem?.name))
-
     return this.functions.find((func) => func.name === this.activeCategoryItem?.name) || {
       name: '',
       import: '',
@@ -253,6 +321,24 @@ export class BuilderComponent {
         type: '',
         description: '',
       },
+    };
+  }
+
+  getEditClass() {
+    return this.classes.find((cls) => cls.name === this.activeCategoryItem?.name) || {
+      name: '',
+      import: '',
+      github: '',
+      description: '',
+      extends: {
+        name: '',
+        import: '',
+      },
+      implements: [],
+      examples: [],
+      properties: [],
+      methods: [],
+      constructors: [],
     };
   }
 }
